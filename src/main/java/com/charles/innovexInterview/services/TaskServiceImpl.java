@@ -1,6 +1,7 @@
 package com.charles.innovexInterview.services;
 
 import com.charles.innovexInterview.models.CreateTask;
+import com.charles.innovexInterview.models.StatusModel;
 import com.charles.innovexInterview.repositories.TaskRepository;
 import com.charles.innovexInterview.models.Task;
 import org.springframework.stereotype.Service;
@@ -53,6 +54,20 @@ public class TaskServiceImpl implements TaskService {
         task.setDisplayMessage(displayMessage);
         task.setColor(generateRandomColor(createTask.getColor()));
         return taskRepository.save(task);
+    }
+
+    @Override
+    public StatusModel ClearDatabase() {
+        StatusModel model;
+        taskRepository.deleteAll();
+        List<Task> list = taskRepository.findAll();
+        if(list.size()==0){
+            model = new StatusModel(1,"Success");
+            return model;
+        }else {
+            model = new StatusModel(0,"Failed");
+            return model;
+        }
     }
 
     String generateRandomColor(String oldColor) {

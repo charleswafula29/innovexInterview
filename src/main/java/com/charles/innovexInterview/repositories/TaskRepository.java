@@ -14,4 +14,6 @@ public interface TaskRepository extends JpaRepository<Task, Long> {
     @Query(value = "SELECT IFNULL((sum(if(tasks_enum = 'START', servers, 0)) - sum(if(tasks_enum = 'STOP', servers, 0))),0) " +
             "as currentServers from tasks ", nativeQuery = true)
     Integer findActiveServers();
+
+    void deleteAll();
 }

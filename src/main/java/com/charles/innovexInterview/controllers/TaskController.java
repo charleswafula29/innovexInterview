@@ -1,6 +1,7 @@
 package com.charles.innovexInterview.controllers;
 
 import com.charles.innovexInterview.models.CreateTask;
+import com.charles.innovexInterview.models.StatusModel;
 import com.charles.innovexInterview.services.TaskService;
 import com.charles.innovexInterview.models.Task;
 import org.springframework.web.bind.annotation.*;
@@ -16,7 +17,6 @@ public class TaskController {
         this.taskService = taskService;
     }
 
-
     @PostMapping
     public Task create(@RequestBody CreateTask createTask) {
         return taskService.create(createTask);
@@ -25,6 +25,11 @@ public class TaskController {
     @GetMapping(value = "getAllTasks")
     public List<Task> findTasks(){
         return taskService.findAll();
+    }
+
+    @DeleteMapping(value = "deleteAll")
+    public StatusModel deleteAllTasks(){
+        return taskService.ClearDatabase();
     }
 
 }
